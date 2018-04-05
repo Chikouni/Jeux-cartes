@@ -5,6 +5,21 @@
 
 using namespace std;
 
+
+
+class Joueur
+{
+private:
+    string : nom;
+    vector<Carte>PaquetJoueur;
+public:
+    Joueur(string n, vector<Carte>pj){
+    nom = n;
+    PaquetJoueur = pj;
+    }
+};
+
+
 //Je crée ma carte
 class Carte
 {
@@ -48,39 +63,11 @@ public:
     }
     }
 
-    void distribuer()
-    {
-        int yui;
-        for (yui=0; yui<13; yui++){
-        Joueur1[yui]=distribution[1];
-        distribution.erase(distribution.begin());
-    }
-    }
+    //Créer methode : prendrecarte
+
+    //Créer methode : mettre carte
 };
 
-//Ce sont les cartes qui sont mises par les joueurs sur la table
-class PaquetTable
-{
-    int valeur;
-    vector<Carte>surLaTable;
-
-    void afficherTable()
-    {
-        cout << "Carte " << valeur << endl;
-    }
-};
-
-class PaquetJoueur
-{
-
-    public:
-    vector<Carte>PaquetDuJoueur;
-
-    void afficherPaquetJoueur()
-    {
-        cout << "Carte " << valeur << endl;
-    }
-};
 
 
 
@@ -102,20 +89,28 @@ int main()
     }
 
     //Mélanger le paquet de carte
-
     pdc.melangerCarte();
 
+    PaquetDeCarte pdcj1;
+    PaquetDeCarte pdcj2;
+    PaquetDeCarte pdcj3;
+    PaquetDeCarte pdcj4;
 
-    //Création des paquets des joueurs
-    PaquetJoueur Joueur1;
-    PaquetJoueur Joueur2;
-    PaquetJoueur Joueur3;
-    PaquetJoueur Joueur4;
+    //Distribution des cartes
 
-    //Je distribue les cartes de mon paquet aux joueurs
+        for(int dist=0; dist<13;dist++){
+            pdcj1[dist]=distribution[dist];
+        }
 
-    pdc.distribuer();
 
+    //Je crée mes joueurs
+    Joueur Joueur1("Dimitri", pdcj1);
+    Joueur Joueur2("Kévin", pdcj2);
+    Joueur Joueur3("Ursule", pdcj3);
+    Joueur Joueur4("Abdelramouf" pdcj4);
+
+
+    cout << pdcj1 << endl;
 
 
 
