@@ -5,22 +5,6 @@
 
 using namespace std;
 
-
-
-class Joueur
-{
-private:
-    string : nom;
-    vector<Carte>PaquetJoueur;
-public:
-    Joueur(string n, vector<Carte>pj){
-    nom = n;
-    PaquetJoueur = pj;
-    }
-};
-
-
-//Je crée ma carte
 class Carte
 {
 private:
@@ -33,20 +17,30 @@ public:
         valeur=v;
         couleur=c;
     }
+
+    int getValeur() { return valeur; }
+
+    void afficher() {
+        cout << valeur << " " << couleur << endl;
+    }
 };
 
-//Je crée mon Paquet de carte composé de cartes et je les distribues
 class PaquetDeCarte
 {
-    vector<Carte>distribution;
+    vector<Carte*> distribution;
 
 public:
-    void ajouterUneCarte(Carte carte)
+
+    //J'AJOUTE UNE CARTE DANS MON PAQUET DE CARTE
+
+    void ajouterUneCarte(Carte* carte)
     {
         distribution.push_back(carte);
     }
 
-    void melangerCarte(Carte carte)
+    //JE MELANGE MON PAQUET DE CARTE
+
+    void melangerCarte()
     {
     int i;
     int a;
@@ -56,20 +50,41 @@ public:
     for (int i=0; i<100; i++){
         a=rand()%52;
         b=rand()%52;
-        c=distribution[a];
-        d=distribution[b];
-        distribution[a]=d;
-        distribution[b]=c;
-    }
+        distribution[53]=distribution[a];
+        distribution[54]=distribution[b];
+        distribution[a]=distribution[54];
+        distribution[b]=distribution[53];
+        }
     }
 
-    //Créer methode : prendrecarte
+    //J'AFFICHE MON PAQUET DE CARTE
 
-    //Créer methode : mettre carte
+    void afficherPdc (){
+        int oui;
+    for(oui = 0; oui < distribution.size(); oui++){
+        distribution[oui]->afficher();
+        //cout << distribution[oui].getValeur() << endl;
+        }
+    }
+
+    vector<Carte*> tampon;
+
+    void prendre(){
+        int ok;
+        for(ok = 0;ok < 26;ok++){
+          tampon.push_back(distribution[ok]);
+          cout << tampon[ok] << endl;
+        }
+            distribution.erase( distribution.begin() + 0, distribution.begin() + 26 );
+    }
+
+    void mettre(){
+        int ko;
+        for(ko = 0;ko < tampon.size();ko++){
+        distribution.push_back(tampon[ko]);
+        }
+    }
 };
-
-
-
 
 int main()
 {
@@ -81,38 +96,28 @@ int main()
 
     for(i=1; i<14; i++)
     {
-        for(a=1; i<5; a++)
+        for(a=1; a<5; a++)
         {
-            Carte carte(i,a);
+            Carte* carte = new Carte(i,a);
             pdc.ajouterUneCarte(carte);
         }
     }
 
-    //Mélanger le paquet de carte
+
     pdc.melangerCarte();
 
-    PaquetDeCarte pdcj1;
-    PaquetDeCarte pdcj2;
-    PaquetDeCarte pdcj3;
-    PaquetDeCarte pdcj4;
+    pdc.afficherPdc();
 
-    //Distribution des cartes
+    cout << endl;
+    cout << endl;
 
-        for(int dist=0; dist<13;dist++){
-            pdcj1[dist]=distribution[dist];
-        }
+    pdc.prendre();
 
+    PaquetDeCarte PdcJ1;
 
-    //Je crée mes joueurs
-    Joueur Joueur1("Dimitri", pdcj1);
-    Joueur Joueur2("Kévin", pdcj2);
-    Joueur Joueur3("Ursule", pdcj3);
-    Joueur Joueur4("Abdelramouf" pdcj4);
+    PdcJ1.mettre();
+    PdcJ1.afficherPdc();
+    cout << "ça marche pas excellent" << endl;
 
-
-    cout << pdcj1 << endl;
-
-
-
-
+    return 0;
 }
