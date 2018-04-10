@@ -5,6 +5,12 @@
 
 using namespace std;
 
+    /******************************************
+
+                    CLASSE CARTE
+
+     ******************************************/
+
 class Carte
 {
 private:
@@ -38,15 +44,29 @@ public:
     }
 };
 
+    /******************************************
+
+            CLASSE PAQUET DE CARTE
+
+     ******************************************/
+
 class PaquetDeCarte
 {
     vector<Carte*> distribution;
 
 public:
+
+
     Carte* retirerCarte(){
-        Carte * t = distribution[0];
+        Carte* t = distribution[0];
         distribution.erase(distribution.begin());
         return t;
+    }
+
+    //JE VEUX SELECTIONNER UNE CARTE DE MON PAQUET DE CARTES
+
+    Carte* getCarte(int i) {
+        return distribution[i];
     }
 
     //J'AJOUTE UNE CARTE DANS MON PAQUET DE CARTE
@@ -54,11 +74,28 @@ public:
     void ajouterUneCarte(Carte* carte)
     {
         distribution.push_back(carte);
-
     }
+
+    //JE VEUX SUPPRIMER UNE CARTE DE MON PAQUET DE CARTE
+
+    void supprimerCarte()
+    {
+        distribution.erase(distribution.begin());
+    }
+
+    //JE VEUX SUPPRIMER LES 3 PREMIERES CARTES DE MON PAQUET
+
+    void supprimer3Cartes()
+    {
+        distribution.erase(distribution.begin() + 0, distribution.begin() + 3);
+    }
+
+    //JE VEUX SAVOIR LA TAILLE DE MON PAQUET DE CARTES
+
     int size(){
     return distribution.size();
     }
+
     //JE MELANGE MON PAQUET DE CARTE
 
     void melangerCarte()
@@ -87,40 +124,19 @@ public:
         //cout << distribution[oui].getValeur() << endl;
         }
     }
-
-    vector<Carte*> tampon;
-
-
-
-
-
-
-//    void prendre(){
-//        int ok;
-//        for(ok = 0;ok < 26;ok++){
-//          tampon.push_back(distribution[ok]);
-//          cout << tampon[ok] << endl;
-//        }
-//            distribution.erase( distribution.begin() + 0, distribution.begin() + 26 );
-//    }
-//
-//    void mettre(){
-//        int ko;
-//        for(ko = 0;ko < tampon.size();ko++){
-//        distribution.push_back(tampon[ko]);
-//        }
-//    }
 };
 
 int main()
 {
     srand (time(NULL));
-    //Création d'un paquet de carte
+
+    //CrÃ©ation d'un paquet de carte
     PaquetDeCarte pdc;
+
     int i;
     int a;
 
-    for(i=1; i<14; i++)
+for(i=1; i<14; i++)
     {
         for(a=1; a<5; a++)
         {
@@ -138,7 +154,7 @@ int main()
     cout << endl;
      PaquetDeCarte PdcJ1;
      PaquetDeCarte PdcJ2;
-    vector<Carte*> tampon;
+
     for (int d=0;d<52;d++){
     Carte* toto;
     toto=pdc.retirerCarte();
@@ -156,96 +172,73 @@ int main()
 cout <<endl<<endl;
  PdcJ2.afficherPdc();
 
+ int o = 0;
 
+ while (PdcJ1.size() > 0 && PdcJ2.size() > 0){
 
+        cout << "[" <<  o << "] : " << PdcJ1.getCarte(0)->getValeur() << " " << PdcJ2.getCarte(0)->getValeur() << endl;
+        o++;
 
+        if ( PdcJ1.getCarte(0)->getValeur() > PdcJ2.getCarte(0)->getValeur() ){
+            PdcJ1.ajouterUneCarte(PdcJ2.getCarte(0));
+            PdcJ1.ajouterUneCarte(PdcJ1.getCarte(0));
 
+            PdcJ1.supprimerCarte();
+            PdcJ2.supprimerCarte();
 
+            cout << "Le Joueur 1 a gagne ce tour" << endl;
 
+        } else if( PdcJ1.getCarte(0)->getValeur() < PdcJ2.getCarte(0)->getValeur() ){
+            PdcJ2.ajouterUneCarte(PdcJ1.getCarte(0));
+            PdcJ2.ajouterUneCarte(PdcJ2.getCarte(0));
 
+            PdcJ1.supprimerCarte();
+            PdcJ2.supprimerCarte();
 
+            cout << "Le Joueur 2 a gagne ce tour" << endl;
+        }else{
+            cout << "Egalite !" << endl;
 
-    PaquetDeCarte Milieuj1;
-    PaquetDeCarte Milieuj2;
+            cout << PdcJ1.getCarte(2)->getValeur() << " " << PdcJ2.getCarte(2)->getValeur() << endl;
 
+                if ( PdcJ1.getCarte(2)->getValeur() > PdcJ2.getCarte(2)->getValeur() ){
+                    PdcJ1.ajouterUneCarte(PdcJ2.getCarte(0));
+                    PdcJ1.ajouterUneCarte(PdcJ1.getCarte(0));
+                    PdcJ1.ajouterUneCarte(PdcJ2.getCarte(1));
+                    PdcJ1.ajouterUneCarte(PdcJ1.getCarte(1));
+                    PdcJ1.ajouterUneCarte(PdcJ2.getCarte(2));
+                    PdcJ1.ajouterUneCarte(PdcJ1.getCarte(2));
 
-    //Distribution des cartes
+                    PdcJ1.supprimer3Cartes();
+                    PdcJ2.supprimer3Cartes();
 
-int tour=0;
-int egalite;
-int j1=0;
-int j2=0;
-while(PdcJ1.size()>0 && PdcJ2.size()>0){
-tour++;
+                    cout << "Le Joueur 1 a gagne ce tour" << endl;
 
+                } else if( PdcJ1.getCarte(2)->getValeur() < PdcJ2.getCarte(2)->getValeur() ){
+                    PdcJ2.ajouterUneCarte(PdcJ1.getCarte(0));
+                    PdcJ2.ajouterUneCarte(PdcJ2.getCarte(0));
+                    PdcJ2.ajouterUneCarte(PdcJ1.getCarte(1));
+                    PdcJ2.ajouterUneCarte(PdcJ2.getCarte(1));
+                    PdcJ2.ajouterUneCarte(PdcJ1.getCarte(2));
+                    PdcJ2.ajouterUneCarte(PdcJ2.getCarte(2));
 
-//while(pdcj1.size()>0 || pdcj2.size()>0){
-//Retire une carte d'un paquet et le met dans celui du milieu.
-Carte* toto = PdcJ1.retirerCarte();
-Milieuj1.ajouterUneCarte(toto);
-//pareil joueur 2
-Carte* toto2 = PdcJ2.retirerCarte();
-Milieuj2.ajouterUneCarte(toto2);
+                    PdcJ1.supprimer3Cartes();
+                    PdcJ2.supprimer3Cartes();
 
-int valeur1=toto->getValeur();
-int valeur2=toto2->getValeur();
-
-//teste de la valeur
-if(valeur1>valeur2){
-
-    cout << valeur1 << "Joueur 1 " << valeur2 << " Joueur2 " <<"victoire joueur 1 mamene"<<endl;
-    j1++;
-    cout << "victoire joueur 1 " << endl << j1 << endl << " victoire joueur 2" << endl << j2 << endl;
-    cout << " nombre de cartes joueur 1 : " << PdcJ1.size() << endl << " nombre de cartes joueur 2 : " << PdcJ2.size() << endl;
-    toto=PdcJ1.retirerCarte();
-     toto2=PdcJ2.retirerCarte();
-     PdcJ1.ajouterUneCarte(toto);
-    PdcJ1.ajouterUneCarte(toto2);
-
-    for(int j=0; j<Milieuj1.size(); j++){
-        Carte* toto3 = Milieuj1.retirerCarte();
-        PdcJ1.ajouterUneCarte(toto3);
-        Carte* toto4 = Milieuj2.retirerCarte();
-        PdcJ1.ajouterUneCarte(toto4);
-}
-
-
-} else { if(valeur1<valeur2){
-    cout << valeur1 << "Joueur 1 " << valeur2 << " Joueur2" <<" victoire joueur 2 mamene "<<endl;
-j2++;
- cout << "victoire joueur 1 " << endl << j1 << endl << " victoire joueur 2" << endl << j2 << endl;
- cout << " nombre de cartes joueur 1 : " << PdcJ1.size() << endl << " nombre de cartes joueur 2 : " << PdcJ2.size() << endl;
-    Carte* toto7=PdcJ1.retirerCarte();
-    Carte* toto8=PdcJ2.retirerCarte();
-     PdcJ2.ajouterUneCarte(toto7);
-     PdcJ2.ajouterUneCarte(toto8);
-     for(int j=0; j<Milieuj2.size(); j++){
-        Carte* toto5 = Milieuj1.retirerCarte();
-        PdcJ2.ajouterUneCarte(toto5);
-        Carte* toto6 = Milieuj2.retirerCarte();
-        PdcJ2.ajouterUneCarte(toto6);
+                    cout << "Le Joueur 2 a gagne ce tour" << endl;
+        }
     }
 
-} else {
-    if(valeur1==valeur2){
-cout << "---------------------------------------------------------------------------"<<endl;
-        toto=PdcJ1.retirerCarte();
-        toto2=PdcJ2.retirerCarte();
-        Milieuj1.ajouterUneCarte(toto);
-        Milieuj2.ajouterUneCarte(toto2);
+    //DU COUPS, S'IL Y A DEUX FOIS DE SUITE UNE EGALITE YA UN PROBLEME.
 
-
-    }
+ }
+        if (PdcJ1.size() == 0){
+        cout << "JOUEUR [1] GAGNE"<< endl;
+        }
+        if (PdcJ2.size() == 0){
+        cout << "JOUEUR [2] GAGNE"<< endl;
+        }
 }
-}
-}
-
-
-
-
-}
-
-
 
 
 
