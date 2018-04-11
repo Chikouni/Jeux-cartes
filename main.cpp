@@ -8,9 +8,7 @@ using namespace std;
 
 
     /******************************************
-
                     CLASSE CARTE
-
      ******************************************/
 
 class Carte
@@ -19,18 +17,21 @@ class Carte
         int valeur;
         int couleur;
         string couleurs;
+        string valeurs[13]={"As", "Deux","Trois", "Quatre", "Cinq", "Six", "Sept", "Huit", "Neuf", "Dix", "Valet", "Dame", "Roi"};
 
     public:
         Carte(int v,int c) //Constructeur
         {
             valeur=v;
             couleur=c;
+
         }
 
         int getValeur() { return valeur; } //Accesseur
 
         void afficher()
         {
+
             if(couleur==1)
             {
                 couleurs="Coeur";
@@ -50,12 +51,13 @@ class Carte
 
             cout << valeur << " " << couleurs << endl;
         }
+        string getCouleurs(){
+        return couleurs;
+        }
 };
 
     /******************************************
-
             CLASSE PAQUET DE CARTE
-
      ******************************************/
 
 class PaquetDeCarte
@@ -148,9 +150,7 @@ class PaquetDeCarte
 
 
     /******************************************
-
                     CLASSE JOUEUR
-
      ******************************************/
 
 class Joueur
@@ -172,9 +172,7 @@ class Joueur
 };
 
     /******************************************
-
                     INT MAIN
-
      ******************************************/
 
 int main()
@@ -246,7 +244,110 @@ int main()
         cout << "Cartes restantes dans le paquet de : " << Joueur1.getNom() << " " << PdcJ1.size() << endl;
         cout << "Cartes restantes dans le paquet de : " << Joueur2.getNom() << " " << PdcJ2.size() << endl;
 
-        cout << "Tour [" <<  o << "] : " << PdcJ1.getCarte(0)->getValeur() << " contre " << PdcJ2.getCarte(0)->getValeur() << endl;
+
+
+        // CONVERSION EN LETTRE DES CARTES
+
+        string valeurscarte;
+        string valeurscarte2;
+        string couleurscarte;
+        string couleurscarte2;
+        string couleurcarte2=PdcJ2.getCarte(0)->getCouleurs();
+         string couleurcarte=PdcJ1.getCarte(0)->getCouleurs();
+          int valeurcarte2=PdcJ2.getCarte(0)->getValeur();
+        int valeurcarte=PdcJ1.getCarte(0)->getValeur();
+        if(valeurcarte==1){
+            valeurscarte="2";
+        }
+        if(valeurcarte==2){
+            valeurscarte="Trois";
+        }
+        if(valeurcarte==3){
+            valeurscarte="Quatre";
+        }
+        if(valeurcarte==4){
+            valeurscarte="Cinq";
+        }
+        if(valeurcarte==5){
+            valeurscarte="Six";
+        }
+        if(valeurcarte==6){
+            valeurscarte="Sept";
+        }
+        if(valeurcarte==7){
+            valeurscarte="Huit";
+        }
+        if(valeurcarte==8){
+            valeurscarte="Neuf";
+        }
+        if(valeurcarte==9){
+            valeurscarte="Dix";
+        }
+        if(valeurcarte==10){
+            valeurscarte="Valet";
+        }
+        if(valeurcarte==11){
+            valeurscarte="Dame";
+        }
+        if(valeurcarte==12){
+            valeurscarte="Roi";
+        }
+        if(valeurcarte==13){
+            valeurscarte="As";
+        }
+
+        // PAREIL POUR LE PAQUET DU JOUEUR 2
+
+
+        if(valeurcarte2==1){
+            valeurscarte2="2";
+        }
+        if(valeurcarte2==2){
+            valeurscarte2="Trois";
+        }
+        if(valeurcarte2==3){
+            valeurscarte2="Quatre";
+        }
+        if(valeurcarte2==4){
+            valeurscarte2="Cinq";
+        }
+        if(valeurcarte2==5){
+            valeurscarte2="Six";
+        }
+        if(valeurcarte2==6){
+            valeurscarte2="Sept";
+        }
+        if(valeurcarte2==7){
+            valeurscarte2="Huit";
+        }
+        if(valeurcarte2==8){
+            valeurscarte2="Neuf";
+        }
+        if(valeurcarte2==9){
+            valeurscarte2="Dix";
+        }
+        if(valeurcarte2==10){
+            valeurscarte2="Valet";
+        }
+        if(valeurcarte2==11){
+            valeurscarte2="Dame";
+        }
+        if(valeurcarte2==12){
+            valeurscarte2="Roi";
+        }
+        if(valeurcarte2==13){
+            valeurscarte2="As";
+        }
+
+
+
+
+
+
+//        int valeurcarte=PdcJ1.getCarte(0)->getValeur();
+//        int a=PdcJ1.getValeurs(valeurcarte);
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        cout << "Tour [" <<  o << "] : " << valeurscarte << " de "<< couleurcarte <<" contre " << valeurscarte2 << " de "<< couleurcarte2 << endl;
         o++;
 
         if ( PdcJ1.getCarte(0)->getValeur() > PdcJ2.getCarte(0)->getValeur() )
@@ -352,6 +453,3 @@ int main()
         cout << Joueur1.getNom() << " GAGNE" << endl;
         }
 }
-
-
-
